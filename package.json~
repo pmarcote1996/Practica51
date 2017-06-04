@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+<<<<<<< HEAD
     "start": "node ./bin/www",
     "migrate_local": "./node_modules/.bin/sequelize db:migrate --url sqlite://$(pwd)/quiz.sqlite",
     "seed_local": "./node_modules/.bin/sequelize db:seed:all --url sqlite://$(pwd)/quiz.sqlite",
@@ -12,12 +13,20 @@
   "engines": {
     "node": "6.8.x",
     "npm": "3.10.x"
+=======
+    "start": "node ./bin/www"
+  },
+  "engines": {
+    "node": "6.10.3",
+    "npm": "3.10.10"
+>>>>>>> practica51
   },
   "dependencies": {
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "ejs": "~2.5.5",
+<<<<<<< HEAD
     "express": "~4.14.1",
     "express-flash": "0.0.2",
     "express-partials": "^0.3.0",
@@ -32,5 +41,11 @@
   },
   "devDependencies": {
     "sqlite3": "^3.1.8"
+=======
+    "express": "~4.0.0",
+    "express-partials": "^0.3.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.2"
+>>>>>>> practica51
   }
 }

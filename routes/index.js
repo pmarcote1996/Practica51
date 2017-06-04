@@ -12,6 +12,10 @@ router.get('/', function(req, res, next) {
 router.get('/author', function(req, res, next) {
     res.render('author');
 });
+// Pagina de ayuda
+router.get('/help', function(req, res, next) {
+    res.render('help');
+});
 
 // Pagina de Jugar
 router.get('random_play', function(req, res, next) {
