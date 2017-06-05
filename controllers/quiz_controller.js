@@ -1,6 +1,6 @@
 var models = require("../models");
 var Sequelize = require('sequelize');
-var score =0;
+
 var paginate = require('../helpers/paginate').paginate;
 
 // Autoload el quiz asociado a :quizId
