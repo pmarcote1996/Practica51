@@ -22,10 +22,13 @@
 
     <nav class="main" id="mainNav" role="navigation">
         <a href="/">Inicio</a>
-<<<<<<< HEAD
         <a href="/quizzes">Preguntas</a>
         <a href="/author">Créditos</a>
+<<<<<<< HEAD
 	<a href="/random_play">Jugar</a>
+=======
+	<a href="/help">Ayuda</a>
+>>>>>>> practica51
     </nav>
 
     <section class="main" id="mainSection">
@@ -68,13 +71,6 @@
         <% if (locals.paginate_control) { %>
         <%- paginate_control %>
         <% } %>
-=======
-        <a href="/author">Créditos</a>
-    </nav>
-
-    <section class="main" id="mainSection">
-            <%- body %>
->>>>>>> practica51
     </section>
 
     <footer class="main" id="mainFooter">

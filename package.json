@@ -10,13 +10,8 @@
     "seed_heroku": "heroku run ./node_modules/.bin/sequelize db:seed:all --url \\$DATABASE_URL"
   },
   "engines": {
-<<<<<<< HEAD
     "node": "7.10.0",
     "npm": "4.2.0"
-=======
-    "node": "6.10.3",
-    "npm": "3.10.10"
->>>>>>> practica51
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -26,10 +21,7 @@
     "express": "~4.14.1",
     "express-flash": "0.0.2",
     "express-partials": "^0.3.0",
-<<<<<<< HEAD
     "express-session": "^1.15.1",
-=======
->>>>>>> practica51
     "method-override": "^2.3.7",
     "morgan": "~1.7.0",
     "pg": "^6.1.5",
