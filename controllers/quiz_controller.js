@@ -71,9 +71,7 @@ exports.index = function (req, res, next) {
 exports.show = function (req, res, next) {
 
     res.render('quizzes/show', {quiz: req.quiz});
-
 };
-
 
 
 // GET /quizzes/new
@@ -190,56 +188,79 @@ exports.check = function (req, res, next) {
     });
 };
 
-var nojugados;
-var n=0;
 
 // GET /quizzes/randomplay
-exports.randomp = function (req, res, next) {
+exports.randomplay = function (req, res, next) {
 
-   models.Quiz.findAll().then(function(quizzes){
-	nojugados= nojugados || quizzes;
-	if(n<nojugados.length){
-	res.render('quizzes/random_play', {
-	quiz : nojugados[n],
-	score : score
-});
+    if (!req.session.score){
+	 req.session.score = 0;
+	}
+    if (!req.session.questions){
+	 req.session.questions = [0];//el tenia un -1, he puesto un 0 y va. Pero lo he dejado vacío y no va... Que es este objeto y por que se inicializa asi
+	} 									
 
-}else{res.render('quizzes/random_nomore', {
-	score: score
-	});
-	score=0;
-	n=0;
-}
+    //models.Quiz.count()
+    //.then(function(count) {
 
-})
-	.catch(function(err){
-	console.log("Error:",err);
-});
+	//return
+	 models.Quiz.findAll({
+	    where: { id: { $notIn: req.session.questions } }
+	})
 
+    //})
+    .then(function(quizzes) {
+	var quizID = -1;
+
+        if (quizzes.length > 0) {
+            var random = parseInt(Math.random() * quizzes.length);
+            quizID = quizzes[random].id;
+        } else {
+	    var result = req.session.score;
+	    req.session.score = 0;
+	    req.session.questions = [0];
+            res.render('quizzes/random_nomore', {
+                score: result
+            });
+		
+        }
+
+        return models.Quiz.findById(quizID);
+
+    })
+    .then(function(quiz) {
+        if (quiz) {
+            req.session.questions.push(quiz.id);//que es push y de donde sale. Es sqrl???
+            res.render('quizzes/random_play', {
+                quiz: quiz,
+                score: req.session.score
+            });
+        }
+    })
+    .catch(function(error) {
+        req.flash('error', 'Error al cargar el Quiz: ' + error.message);	
+        next(error);
+    });
 };
-
-var score=0;
 
 // GET /quizzes/randomcheck/:quizId
 exports.randomcheck = function (req, res, next) {
 
-   var answer = req.query.answer || "";
-  	
+    var answer = req.query.answer || "";
+
     var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
-	if(result){
-	 score++;
-	 n++;	
-}
+
+    if (result) {
+        req.session.score++;
+	var score = req.session.score;
+    }else{
+	var score = 0;
+	req.session.score = 0;
+	req.session.question = [0];
+    }
 
     res.render('quizzes/random_result', {
-        quiz: req.quiz,
+        score: score,
         result: result,
-        answer: answer,
-	score : score
+        answer: answer
     });
-if(!result){
-	score=0;
-	n=0;
-	}
 };
-
